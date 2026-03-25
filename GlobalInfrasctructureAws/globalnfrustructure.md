@@ -33,6 +33,42 @@ Availability Zones are comprised of one or more discrete **Data Centers**.
 * These house the actual physical servers, storage, and networking hardware.
 * They feature redundant power, cooling, and physical security.
 
+
+## **D. Edge Locations**
+
+👉 Edge Location = **CDN (Content Delivery Network) servers**
+
+AWS ka service: **CloudFront**
+
+---
+
+### 🔥 Simple samajh:
+
+Edge Location = **user ke paas mini server**
+
+---
+
+### 🧠 Kaam kya karta hai?
+
+* Static content (images, videos, CSS) ko cache karta hai
+* User ko **nearest location se data deta hai**
+
+---
+
+### ⚡ Real-world Example:
+
+Agar tumhari website US mein host hai
+
+aur user Pakistan mein hai
+
+Without Edge Location:
+
+👉 Data US se aayega → slow
+
+With Edge Location:
+
+👉 Data nearby Edge server se aayega → fast 🚀
+
 ---
 
 ## 2. Infrastructure Diagram
