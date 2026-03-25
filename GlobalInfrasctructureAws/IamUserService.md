@@ -127,5 +127,3 @@ A policy allows or denies specific **Actions** on specific **Resources**.
 > 10.
 
 ---
-
-*Notes compiled for GitHub Learning Repo - Cloud Engineering Section.*
