@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AWS Cloud Engineer Roadmap — Beginner to Elite</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0b0e14;
+  --surface: #111520;
+  --card: #161c2a;
+  --border: rgba(255,255,255,0.07);
+  --border-hi: rgba(255,255,255,0.14);
+  --text: #e8eaf0;
+  --muted: #7a8099;
+  --dim: #4a5068;
+
+  --p1: #ff6b35;   /* Foundation - orange */
+  --p2: #3ecfcf;   /* Intermediate - teal */
+  --p3: #a78bfa;   /* Advanced - purple */
+  --p4: #f9c74f;   /* Elite - gold */
+
+  --p1-bg: rgba(255,107,53,0.08);
+  --p2-bg: rgba(62,207,207,0.08);
+  --p3-bg: rgba(167,139,250,0.08);
+  --p4-bg: rgba(249,199,79,0.08);
+
+  --font: 'Sora', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── Header ── */
+header {
+  position: relative;
+  padding: 72px 48px 56px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(62,207,207,0.12) 0%, transparent 70%),
+              radial-gradient(ellipse 40% 40% at 90% 50%, rgba(167,139,250,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.header-inner { position: relative; max-width: 960px; margin: 0 auto; }
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--p2); border: 1px solid rgba(62,207,207,0.3); border-radius: 4px;
+  padding: 4px 10px; margin-bottom: 20px;
+}
+.badge::before { content: '▶'; font-size: 8px; }
+h1 {
+  font-size: clamp(32px,5vw,56px); font-weight: 800; line-height: 1.1;
+  letter-spacing: -0.02em; margin-bottom: 16px;
+}
+h1 span { color: var(--p2); }
+.subtitle { font-size: 16px; color: var(--muted); max-width: 560px; line-height: 1.7; margin-bottom: 40px; }
+.stat-row { display: flex; gap: 32px; flex-wrap: wrap; }
+.stat { display: flex; flex-direction: column; }
+.stat-num { font-size: 28px; font-weight: 700; color: var(--text); }
+.stat-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+
+/* ── Timeline nav ── */
+.phase-nav {
+  display: flex; gap: 0; border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; background: rgba(11,14,20,0.95); backdrop-filter: blur(12px);
+  z-index: 100; overflow-x: auto;
+}
+.phase-tab {
+  flex: 1; min-width: 160px; padding: 18px 20px; cursor: pointer;
+  border: none; background: transparent; color: var(--muted);
+  font-family: var(--font); font-size: 13px; font-weight: 600;
+  border-bottom: 2px solid transparent; transition: all .2s;
+  display: flex; align-items: center; gap: 10px; white-space: nowrap;
+}
+.phase-tab:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+.phase-tab.active { color: var(--text); border-bottom-color: var(--phase-color); }
+.phase-tab .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--phase-color); flex-shrink: 0; }
+.phase-tag {
+  font-family: var(--mono); font-size: 10px; padding: 2px 6px;
+  border-radius: 3px; background: var(--phase-color-bg);
+  color: var(--phase-color); letter-spacing: .04em; margin-left: auto;
+}
+
+/* ── Main layout ── */
+main { max-width: 960px; margin: 0 auto; padding: 0 32px 80px; }
+
+/* ── Phase section ── */
+.phase-section { padding-top: 56px; }
+.phase-header {
+  display: flex; align-items: flex-start; gap: 20px; margin-bottom: 40px;
+  padding-bottom: 32px; border-bottom: 1px solid var(--border);
+}
+.phase-icon {
+  width: 56px; height: 56px; border-radius: 12px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; background: var(--phase-bg);
+  border: 1px solid var(--phase-border);
+}
+.phase-meta { flex: 1; }
+.phase-num { font-family: var(--mono); font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 6px; }
+.phase-title { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+.phase-title span { color: var(--phase-color); }
+.phase-desc { color: var(--muted); font-size: 14px; max-width: 600px; line-height: 1.7; }
+.phase-duration {
+  font-family: var(--mono); font-size: 12px; color: var(--phase-color);
+  background: var(--phase-bg); border: 1px solid var(--phase-border);
+  padding: 6px 14px; border-radius: 6px; white-space: nowrap; align-self: flex-start; margin-top: 4px;
+}
+
+/* ── Content grid ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 16px; }
+.full { grid-column: 1 / -1; }
+
+/* ── Cards ── */
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px; transition: border-color .2s;
+}
+.card:hover { border-color: var(--border-hi); }
+.card-title {
+  font-size: 12px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--muted); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.card-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* ── Service tags ── */
+.tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag {
+  font-family: var(--mono); font-size: 11px; padding: 4px 10px;
+  border-radius: 4px; border: 1px solid;
+  transition: all .15s;
+}
+.tag:hover { transform: translateY(-1px); }
+.tag.orange { color: var(--p1); border-color: rgba(255,107,53,.25); background: rgba(255,107,53,.06); }
+.tag.teal   { color: var(--p2); border-color: rgba(62,207,207,.25); background: rgba(62,207,207,.06); }
+.tag.purple { color: var(--p3); border-color: rgba(167,139,250,.25); background: rgba(167,139,250,.06); }
+.tag.gold   { color: var(--p4); border-color: rgba(249,199,79,.25); background: rgba(249,199,79,.06); }
+.tag.gray   { color: var(--muted); border-color: var(--border); background: rgba(255,255,255,.02); }
+
+/* ── Concept list ── */
+.concept-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.concept-list li {
+  display: flex; gap: 12px; align-items: flex-start;
+  font-size: 13px; line-height: 1.55;
+}
+.concept-list li::before {
+  content: '◆'; font-size: 6px; color: var(--phase-color);
+  margin-top: 6px; flex-shrink: 0;
+}
+.concept-list li strong { color: var(--text); font-weight: 600; display: block; margin-bottom: 2px; }
+.concept-list li span { color: var(--muted); }
+
+/* ── Project card ── */
+.project-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden; transition: border-color .2s;
+  margin-bottom: 16px;
+}
+.project-card:hover { border-color: var(--border-hi); }
+.project-header {
+  padding: 20px 24px 16px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.project-num {
+  font-family: var(--mono); font-size: 10px; color: var(--phase-color);
+  background: var(--phase-bg); border: 1px solid var(--phase-border);
+  padding: 4px 8px; border-radius: 4px; flex-shrink: 0; margin-top: 2px;
+}
+.project-name { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.project-desc { font-size: 13px; color: var(--muted); }
+.project-body { padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+.project-section-label { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--dim); margin-bottom: 6px; }
+
+/* ── Tasks checklist ── */
+.task-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.task-list li {
+  display: flex; gap: 10px; align-items: flex-start;
+  font-size: 13px; color: var(--muted); line-height: 1.5;
+}
+.task-check {
+  width: 16px; height: 16px; border-radius: 4px; border: 1px solid var(--border-hi);
+  flex-shrink: 0; margin-top: 1px; cursor: pointer; transition: all .15s;
+  display: flex; align-items: center; justify-content: center;
+}
+.task-check:hover { border-color: var(--phase-color); }
+.task-check.done { background: var(--phase-color); border-color: var(--phase-color); }
+.task-check.done::after { content: '✓'; font-size: 9px; color: #000; font-weight: 700; }
+.task-list li.done-item { text-decoration: line-through; opacity: .5; }
+
+/* ── Week plan ── */
+.week-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.week-table th {
+  text-align: left; padding: 10px 14px; font-size: 11px; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--muted); border-bottom: 1px solid var(--border);
+  font-weight: 600;
+}
+.week-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--muted); }
+.week-table td:first-child { color: var(--text); font-weight: 600; font-family: var(--mono); font-size: 12px; }
+.week-table tr:last-child td { border-bottom: none; }
+.week-table tr:hover td { background: rgba(255,255,255,.02); }
+.w-phase { font-family: var(--mono); font-size: 10px; padding: 2px 6px; border-radius: 3px; }
+
+/* ── Warning/tip blocks ── */
+.tip-block {
+  border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.6;
+  display: flex; gap: 12px; align-items: flex-start;
+  margin-bottom: 12px;
+}
+.tip-block.danger { background: rgba(255,59,59,.06); border: 1px solid rgba(255,59,59,.15); }
+.tip-block.success { background: rgba(62,207,207,.06); border: 1px solid rgba(62,207,207,.15); }
+.tip-block.warn { background: rgba(249,199,79,.06); border: 1px solid rgba(249,199,79,.15); }
+.tip-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.tip-block strong { display: block; margin-bottom: 4px; font-size: 13px; }
+.tip-block.danger strong { color: #ff6b6b; }
+.tip-block.success strong { color: var(--p2); }
+.tip-block.warn strong { color: var(--p4); }
+.tip-block p { color: var(--muted); }
+
+/* ── Cert card ── */
+.cert-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 18px 20px;
+  display: flex; gap: 14px; align-items: flex-start;
+  transition: border-color .2s;
+}
+.cert-card:hover { border-color: var(--border-hi); }
+.cert-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+.cert-name { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.cert-note { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.cert-when { font-family: var(--mono); font-size: 10px; margin-top: 6px; }
+
+/* ── Standout project ── */
+.standout {
+  background: linear-gradient(135deg, rgba(249,199,79,.05) 0%, rgba(167,139,250,.05) 100%);
+  border: 1px solid rgba(249,199,79,.2); border-radius: 16px; padding: 32px;
+  position: relative; overflow: hidden;
+}
+.standout::before {
+  content: 'STANDOUT PROJECT';
+  position: absolute; top: 16px; right: 20px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
+  color: var(--p4); opacity: .6;
+}
+.standout-title { font-size: 22px; font-weight: 700; margin-bottom: 10px; color: var(--p4); }
+.standout-sub { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 24px; }
+.arch-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+  header { padding: 48px 24px 40px; }
+  main { padding: 0 16px 60px; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .phase-header { flex-wrap: wrap; }
+  .stat-row { gap: 20px; }
+}
+
+/* ── Progress bar ── */
+.progress-bar { height: 3px; background: var(--border); border-radius: 2px; margin: 24px 0; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 2px; transition: width 1s ease; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="badge">Top 10% AWS Engineer Roadmap</div>
+    <h1>From Zero to <span>Cloud Elite</span></h1>
+    <p class="subtitle">A production-grade learning path designed for a university student who already knows React, Node.js & MongoDB — and wants depth, not certifications.</p>
+    <div class="stat-row">
+      <div class="stat"><span class="stat-num">4</span><span class="stat-label">Phases</span></div>
+      <div class="stat"><span class="stat-num">~12</span><span class="stat-label">Months</span></div>
+      <div class="stat"><span class="stat-num">2–4 hrs</span><span class="stat-label">Daily</span></div>
+      <div class="stat"><span class="stat-num">1</span><span class="stat-label">FYP-winning project</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ── NAV ── -->
+<nav class="phase-nav" id="phase-nav">
+  <button class="phase-tab active" onclick="showPhase(0)" style="--phase-color:var(--p1)">
+    <span class="dot"></span> Phase 1: Foundation
+    <span class="phase-tag" style="--phase-color:var(--p1);--phase-color-bg:var(--p1-bg)">Weeks 1–8</span>
+  </button>
+  <button class="phase-tab" onclick="showPhase(1)" style="--phase-color:var(--p2)">
+    <span class="dot"></span> Phase 2: Intermediate
+    <span class="phase-tag" style="--phase-color:var(--p2);--phase-color-bg:var(--p2-bg)">Weeks 9–20</span>
+  </button>
+  <button class="phase-tab" onclick="showPhase(2)" style="--phase-color:var(--p3)">
+    <span class="dot"></span> Phase 3: Advanced
+    <span class="phase-tag" style="--phase-color:var(--p3);--phase-color-bg:var(--p3-bg)">Weeks 21–32</span>
+  </button>
+  <button class="phase-tab" onclick="showPhase(3)" style="--phase-color:var(--p4)">
+    <span class="dot"></span> Phase 4: Elite
+    <span class="phase-tag" style="--phase-color:var(--p4);--phase-color-bg:var(--p4-bg)">Weeks 33–48</span>
+  </button>
+  <button class="phase-tab" onclick="showPhase(4)" style="--phase-color:var(--muted)">
+    <span class="dot" style="background:var(--muted)"></span> Study Plan + Certs
+  </button>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════════════════
+     PHASE 1: FOUNDATION
+═══════════════════════════════════════════ -->
+<section class="phase-section" id="phase-0" style="--phase-color:var(--p1);--phase-bg:var(--p1-bg);--phase-border:rgba(255,107,53,.2)">
+  <div class="phase-header">
+    <div class="phase-icon">🌱</div>
+    <div class="phase-meta">
+      <div class="phase-num">Phase 01 / Foundation</div>
+      <div class="phase-title">Cloud <span>Fundamentals</span> That Actually Matter</div>
+      <div class="phase-desc">Don't just memorize AWS services. Understand WHY cloud exists: elasticity, pay-as-you-go, shared responsibility. Your Node.js background is a superpower here — deploy real apps from day 1.</div>
+    </div>
+    <div class="phase-duration">Weeks 1–8</div>
+  </div>
+
+  <!-- Services -->
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-title">AWS Services to Learn</div>
+    <div class="tag-cloud">
+      <span class="tag orange">IAM</span>
+      <span class="tag orange">EC2</span>
+      <span class="tag orange">S3</span>
+      <span class="tag orange">VPC</span>
+      <span class="tag orange">Route 53</span>
+      <span class="tag orange">CloudFront</span>
+      <span class="tag orange">RDS (PostgreSQL)</span>
+      <span class="tag orange">Lambda (intro)</span>
+      <span class="tag orange">CloudWatch</span>
+      <span class="tag orange">AWS CLI</span>
+      <span class="tag gray">Elastic Load Balancer</span>
+      <span class="tag gray">Auto Scaling Groups</span>
+    </div>
+  </div>
+
+  <!-- Core Concepts + DevOps -->
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Core Concepts — Not Just Tools</div>
+      <ul class="concept-list">
+        <li>
+          <div><strong>Shared Responsibility Model</strong><span>AWS secures the cloud; you secure what's IN the cloud. Every security mistake traces back to misunderstanding this.</span></div>
+        </li>
+        <li>
+          <div><strong>Networking fundamentals</strong><span>CIDR blocks, subnets, routing tables, security groups vs NACLs. You can't troubleshoot without this.</span></div>
+        </li>
+        <li>
+          <div><strong>IAM Principle of Least Privilege</strong><span>Roles over users. Service accounts. Never use root. Understand policies as JSON.</span></div>
+        </li>
+        <li>
+          <div><strong>Stateless vs Stateful design</strong><span>Why EC2 needs an ELB in front. Why S3 is infinitely scalable but your DB isn't.</span></div>
+        </li>
+        <li>
+          <div><strong>Availability Zones vs Regions</strong><span>Multi-AZ is for availability; Multi-Region is for disaster recovery. Know the cost difference.</span></div>
+        </li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">DevOps Tools — Phase 1 Intro</div>
+      <ul class="concept-list">
+        <li>
+          <div><strong>Docker (containers)</strong><span>Containerize your Node.js apps. Understand images, layers, volumes. Build a Dockerfile before touching ECS.</span></div>
+        </li>
+        <li>
+          <div><strong>Linux CLI basics</strong><span>SSH into EC2, manage permissions, read logs, use systemd. You'll use this daily.</span></div>
+        </li>
+        <li>
+          <div><strong>Git + GitHub</strong><span>Branching strategies (GitFlow). This is version control for your infra later.</span></div>
+        </li>
+        <li>
+          <div><strong>Bash scripting</strong><span>Automate repetitive tasks. User data scripts for EC2 bootstrap. Basic loops and conditionals.</span></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Projects -->
+  <div class="card-title" style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:24px 0 16px;display:flex;align-items:center;gap:8px">Real-World Projects <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+
+  <div class="project-card">
+    <div class="project-header">
+      <div class="project-num">P1-A</div>
+      <div>
+        <div class="project-name">Deploy your Node.js API to EC2 — Production-style</div>
+        <div class="project-desc">Not just "run npm start on EC2". Do it properly: Nginx reverse proxy, SSL via Let's Encrypt, systemd process management, custom VPC with public/private subnets.</div>
+      </div>
+    </div>
+    <div class="project-body">
+      <div>
+        <div class="project-section-label">What you'll build</div>
+        <div class="tag-cloud">
+          <span class="tag orange">Custom VPC + subnets</span>
+          <span class="tag orange">EC2 behind Nginx</span>
+          <span class="tag orange">RDS in private subnet</span>
+          <span class="tag orange">S3 for file uploads</span>
+          <span class="tag orange">CloudFront CDN</span>
+          <span class="tag orange">Route53 custom domain</span>
+        </div>
+      </div>
+      <div>
+        <div class="project-section-label">Hands-on tasks</div>
+        <ul class="task-list" data-phase="p1">
+          <li><div class="task-check" onclick="toggleTask(this)"></div> Create a VPC with 2 public + 2 private subnets across 2 AZs</li>
+          <li><div class="task-check" onclick="toggleTask(this)"></div> Launch EC2, SSH in, install Node.js via NVM — zero tutorial shortcuts</li>
+          <li><div class="task-check" onclick="toggleTask(this)"></div> Configure Nginx as reverse proxy to Node.js port 3000</li>
+          <li><div class="task-check" onclick="toggleTask(this)"></div> Set up RDS PostgreSQL in private subnet, connect from EC2 via security group only</li>
+          <li><div class="task-check" onclick="toggleTask(this)"></div> Add S3 bucket for user uploads (server-side using SDK, NOT public bucket)</li>
+          <li><div class="task-check" onclick="toggleTask(this)"></div> Enable CloudWatch monitoring + create CPU alarm that sends email</li>
+          <li><div class="task-check" onclick="toggleTask(this)"></div> Add Auto Scaling Group with min=1, max=3, scale on CPU > 70%</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="project-header">
+      <div class="project-num">P1-B</div>
+      <div>
+        <div class="project-name">Containerize Everything with Docker</div>
+        <div class="project-desc">Take the same Node.js API and fully containerize it. This bridges phase 1 to phase 2 (ECS/EKS).</div>
+      </div>
+    </div>
+    <div class="project-body">
+      <ul class="task-list">
+        <li><div class="task-check" onclick="toggleTask(this)"></div> Write multi-stage Dockerfile (build stage → production image, reduces image size by 70%+)</li>
+        <li><div class="task-check" onclick="toggleTask(this)"></div> Use docker-compose for local: api + postgres + redis</li>
+        <li><div class="task-check" onclick="toggleTask(this)"></div> Push image to Amazon ECR (Elastic Container Registry)</li>
+        <li><div class="task-check" onclick="toggleTask(this)"></div> Run your container on EC2 (pre-ECS warmup)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Mistakes -->
+  <div class="card-title" style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:24px 0 16px;display:flex;align-items:center;gap:8px">Common Mistakes <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+  <div class="tip-block danger"><div class="tip-icon">⚠</div><div><strong>Leaving resources running (destroys your budget)</strong><p>Set AWS Budgets to $20/month with email alert on day 1. Stop EC2 instances when done. Delete RDS snapshots. This is the #1 mistake of beginners.</p></div></div>
+  <div class="tip-block danger"><div class="tip-icon">⚠</div><div><strong>Putting everything in a public subnet</strong><p>Your database should NEVER be in a public subnet. Private subnet + security group allowing only your EC2 is the correct pattern.</p></div></div>
+  <div class="tip-block success"><div class="tip-icon">✓</div><div><strong>Use AWS Free Tier strategically</strong><p>t2.micro/t3.micro EC2, RDS db.t3.micro, 5GB S3 — all free for 12 months. Learn cost optimization from day 1.</p></div></div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     PHASE 2: INTERMEDIATE
+═══════════════════════════════════════════ -->
+<section class="phase-section" id="phase-1" style="--phase-color:var(--p2);--phase-bg:var(--p2-bg);--phase-border:rgba(62,207,207,.2);display:none">
+  <div class="phase-header">
+    <div class="phase-icon">⚙️</div>
+    <div class="phase-meta">
+      <div class="phase-num">Phase 02 / Intermediate</div>
+      <div class="phase-title">Production <span>Architecture</span> + DevOps Pipeline</div>
+      <div class="phase-desc">This is where most engineers plateau. The difference between a junior and mid-level cloud engineer is automated deployments, infrastructure as code, and serverless design patterns.</div>
+    </div>
+    <div class="phase-duration">Weeks 9–20</div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-title">AWS Services to Learn</div>
+    <div class="tag-cloud">
+      <span class="tag teal">ECS Fargate</span>
+      <span class="tag teal">API Gateway</span>
+      <span class="tag teal">Lambda (deep)</span>
+      <span class="tag teal">SQS</span>
+      <span class="tag teal">SNS</span>
+      <span class="tag teal">DynamoDB</span>
+      <span class="tag teal">ElastiCache (Redis)</span>
+      <span class="tag teal">CodePipeline</span>
+      <span class="tag teal">CodeBuild</span>
+      <span class="tag teal">ECR</span>
+      <span class="tag teal">Secrets Manager</span>
+      <span class="tag teal">Systems Manager (SSM)</span>
+      <span class="tag gray">EventBridge</span>
+      <span class="tag gray">Step Functions</span>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Core Concepts</div>
+      <ul class="concept-list">
+        <li>
+          <div><strong>Infrastructure as Code (IaC) with Terraform</strong><span>Stop clicking the console. Every resource you create must be reproducible. Learn HCL: providers, resources, variables, outputs, state files, remote state on S3.</span></div>
+        </li>
+        <li>
+          <div><strong>Event-Driven Architecture</strong><span>SQS decouples producers from consumers. SNS fans out to multiple subscribers. EventBridge is the glue for async workflows. This is the real-world pattern for high-throughput systems.</span></div>
+        </li>
+        <li>
+          <div><strong>CI/CD Pipeline Design</strong><span>Source → Build → Test → Deploy. Blue/green deployments. Canary releases. Zero-downtime deploys. These aren't optional for production systems.</span></div>
+        </li>
+        <li>
+          <div><strong>Serverless design patterns</strong><span>Cold starts, concurrency limits, execution time limits, idempotency. Lambda + API Gateway isn't just "run function" — it's an architectural decision with tradeoffs.</span></div>
+        </li>
+        <li>
+          <div><strong>Secret management</strong><span>NEVER hardcode secrets. Secrets Manager vs SSM Parameter Store. IAM roles for service-to-service auth. Envelope encryption.</span></div>
+        </li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">DevOps Tools — Phase 2 Deep Dive</div>
+      <ul class="concept-list">
+        <li>
+          <div><strong>Terraform (core skill)</strong><span>Modules, workspaces, state locking with DynamoDB. Write Terraform for everything from Phase 1. Never provision manually again.</span></div>
+        </li>
+        <li>
+          <div><strong>GitHub Actions CI/CD</strong><span>Build pipelines: lint → unit test → build Docker image → push to ECR → deploy to ECS. Learn OIDC authentication with AWS (no long-lived access keys in CI).</span></div>
+        </li>
+        <li>
+          <div><strong>AWS CDK (optional but valuable)</strong><span>If you prefer TypeScript, CDK generates CloudFormation. Great bridge from dev → ops thinking.</span></div>
+        </li>
+        <li>
+          <div><strong>Monitoring: CloudWatch + Grafana</strong><span>Custom metrics, log groups, dashboards. Trace a request end-to-end with X-Ray. Alarm on business metrics, not just CPU.</span></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card-title" style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:24px 0 16px;display:flex;align-items:center;gap:8px">Real-World Projects <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+
+  <div class="project-card">
+    <div class="project-header">
+      <div class="project-num">P2-A</div>
+      <div>
+        <div class="project-name">Fully-Automated E-Commerce Backend</div>
+        <div class="project-desc">Microservices on ECS Fargate, with a proper CI/CD pipeline. This is the project that separates you from 80% of CS graduates.</div>
+      </div>
+    </div>
+    <div class="project-body">
+      <div>
+        <div class="project-section-label">Architecture</div>
+        <div class="tag-cloud">
+          <span class="tag teal">3 microservices on ECS Fargate</span>
+          <span class="tag teal">API Gateway + Lambda auth</span>
+          <span class="tag teal">SQS order queue</span>
+          <span class="tag teal">DynamoDB for cart</span>
+          <span class="tag teal">Redis for sessions</span>
+          <span class="tag teal">SNS email notifications</span>
+        </div>
+      </div>
+      <div>
+        <div class="project-section-label">CI/CD Pipeline (hands-on)</div>
+        <ul class="task-list">
+          <li><div class="task-check" onclick="toggleTask(this)"></div> GitHub Actions: PR triggers lint + unit tests (jest); merge to main triggers deployment</li>
+          <li><div class="task-check" onclick="toggleTask(this)"></div> Build Docker image, tag with git SHA, push to ECR</li>
+          <li><div class="task-check" onclick="toggleTask(this)"></div> Use OIDC (not access keys) for GitHub → AWS auth</li>
+          <li><div class="task-check" onclick="toggleTask(this)"></div> Deploy to ECS with rolling update strategy</li>
+          <li><div class="task-check" onclick="toggleTask(this)"></div> Write ALL infrastructure in Terraform (VPC, ECS cluster, task definitions, IAM)</li>
+          <li><div class="task-check" onclick="toggleTask(this)"></div> Store Terraform state in S3 + DynamoDB lock table</li>
+          <li><div class="task-check" onclick="toggleTask(this)"></div> Implement health check endpoint, ALB routes only to healthy tasks</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="project-header">
+      <div class="project-num">P2-B</div>
+      <div>
+        <div class="project-name">Serverless Image Processing Pipeline</div>
+        <div class="project-desc">User uploads photo → S3 → Lambda triggered → resize to 3 sizes → store back to S3 → notify via SQS. A classic real-world event-driven pattern.</div>
+      </div>
+    </div>
+    <div class="project-body">
+      <ul class="task-list">
+        <li><div class="task-check" onclick="toggleTask(this)"></div> S3 bucket triggers Lambda on object creation (not polling — event-driven)</li>
+        <li><div class="task-check" onclick="toggleTask(this)"></div> Lambda uses Sharp library (deployed as Lambda Layer)</li>
+        <li><div class="task-check" onclick="toggleTask(this)"></div> Dead Letter Queue (SQS) for failed processing jobs</li>
+        <li><div class="task-check" onclick="toggleTask(this)"></div> X-Ray tracing to measure cold start vs warm performance</li>
+        <li><div class="task-check" onclick="toggleTask(this)"></div> Step Functions for multi-step approval workflow (bonus)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card-title" style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:24px 0 16px;display:flex;align-items:center;gap:8px">Common Mistakes <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+  <div class="tip-block danger"><div class="tip-icon">⚠</div><div><strong>Treating Terraform as "just a tool" — not understanding state</strong><p>State drift kills production systems. Always use remote state. Never run terraform apply locally in a team. Use workspaces for dev/staging/prod environments.</p></div></div>
+  <div class="tip-block danger"><div class="tip-icon">⚠</div><div><strong>Lambda anti-patterns: putting everything in one function</strong><p>Each Lambda should have a single responsibility. Don't put your entire Express app in one Lambda — that defeats serverless. Use Lambda for event handlers, not monoliths.</p></div></div>
+  <div class="tip-block warn"><div class="tip-icon">◆</div><div><strong>DynamoDB access patterns MUST be designed upfront</strong><p>Unlike MongoDB, you design your DynamoDB schema around your queries, not the other way around. Model your single-table design before writing any code.</p></div></div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     PHASE 3: ADVANCED
+═══════════════════════════════════════════ -->
+<section class="phase-section" id="phase-2" style="--phase-color:var(--p3);--phase-bg:var(--p3-bg);--phase-border:rgba(167,139,250,.2);display:none">
+  <div class="phase-header">
+    <div class="phase-icon">🏗️</div>
+    <div class="phase-meta">
+      <div class="phase-num">Phase 03 / Advanced</div>
+      <div class="phase-title">System Design + <span>Kubernetes</span> at Scale</div>
+      <div class="phase-desc">This is where you start thinking like a staff engineer. Reliability engineering, cost optimization, Kubernetes orchestration, and distributed systems design. Your FYP-winning project lives here.</div>
+    </div>
+    <div class="phase-duration">Weeks 21–32</div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-title">AWS Services to Learn</div>
+    <div class="tag-cloud">
+      <span class="tag purple">EKS (Kubernetes)</span>
+      <span class="tag purple">Aurora Serverless v2</span>
+      <span class="tag purple">OpenSearch</span>
+      <span class="tag purple">Kinesis Data Streams</span>
+      <span class="tag purple">WAF + Shield</span>
+      <span class="tag purple">CloudTrail</span>
+      <span class="tag purple">Config</span>
+      <span class="tag purple">Cost Explorer + Budgets</span>
+      <span class="tag purple">Service Mesh (App Mesh)</span>
+      <span class="tag gray">GuardDuty</span>
+      <span class="tag gray">Macie</span>
+      <span class="tag gray">Organizations + SCPs</span>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Core Concepts</div>
+      <ul class="concept-list">
+        <li>
+          <div><strong>Kubernetes internals</strong><span>Don't just run kubectl. Understand: Pods, Deployments, Services, Ingress, ConfigMaps, Secrets, RBAC, HPA (Horizontal Pod Autoscaler), resource limits/requests. EKS adds: IAM for service accounts (IRSA), managed node groups, Fargate profiles.</span></div>
+        </li>
+        <li>
+          <div><strong>Distributed systems patterns</strong><span>Circuit breaker, retry with exponential backoff, idempotency keys, saga pattern for distributed transactions. These prevent cascading failures at scale.</span></div>
+        </li>
+        <li>
+          <div><strong>Observability (not just monitoring)</strong><span>The 3 pillars: Logs, Metrics, Traces. Implement OpenTelemetry. Correlate a slow API request back to a specific DB query across 5 microservices.</span></div>
+        </li>
+        <li>
+          <div><strong>Cloud security posture</strong><span>GuardDuty for threat detection. AWS Config for compliance drift. SCPs to prevent dangerous actions across an org. Zero-trust networking.</span></div>
+        </li>
+        <li>
+          <div><strong>FinOps / Cost engineering</strong><span>Reserved instances vs Savings Plans vs Spot. Right-sizing with Compute Optimizer. Tagging strategy for cost allocation. This is what CTOs ask about.</span></div>
+        </li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">DevOps Tools — Phase 3</div>
+      <ul class="concept-list">
+        <li>
+          <div><strong>Helm (Kubernetes package manager)</strong><span>Deploy applications with Helm charts. Write your own chart. Understand values.yaml, templates, and chart versioning.</span></div>
+        </li>
+        <li>
+          <div><strong>ArgoCD (GitOps)</strong><span>GitOps = your Git repo IS the source of truth for cluster state. ArgoCD watches your repo and auto-syncs. This is how serious teams do K8s deployments.</span></div>
+        </li>
+        <li>
+          <div><strong>Prometheus + Grafana on EKS</strong><span>Deploy kube-prometheus-stack via Helm. Build dashboards for pod CPU/memory, HTTP error rates, custom business metrics.</span></div>
+        </li>
+        <li>
+          <div><strong>Terraform advanced</strong><span>Modules as reusable components. Terragrunt for DRY configs. Terraform Cloud for team workflows. Drift detection.</span></div>
+        </li>
+        <li>
+          <div><strong>chaos engineering intro</strong><span>AWS Fault Injection Simulator. Kill a pod randomly. Does your system recover? If not, you need better resilience patterns.</span></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- STANDOUT PROJECT -->
+  <div class="card-title" style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:24px 0 16px;display:flex;align-items:center;gap:8px">FYP / Job-Winning Project <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+
+  <div class="standout">
+    <div class="standout-title">🏆 Real-Time Multi-Tenant SaaS Analytics Platform</div>
+    <div class="standout-sub">A production-grade, multi-tenant analytics dashboard that ingests live event streams, processes them at scale, stores results in a time-series DB, and displays them on a React frontend. This hits every hot topic: Kubernetes, real-time streaming, multi-tenancy, security isolation, and cost optimization.</div>
+
+    <div class="grid-2">
+      <div>
+        <div class="project-section-label">Data Ingestion Layer</div>
+        <div class="tag-cloud" style="margin-bottom:16px">
+          <span class="tag purple">API Gateway + Lambda</span>
+          <span class="tag purple">Kinesis Data Streams</span>
+          <span class="tag purple">Kinesis Firehose → S3</span>
+        </div>
+        <div class="project-section-label">Processing Layer</div>
+        <div class="tag-cloud" style="margin-bottom:16px">
+          <span class="tag purple">EKS microservices</span>
+          <span class="tag purple">Kafka (MSK) for event bus</span>
+          <span class="tag purple">Lambda for aggregations</span>
+        </div>
+      </div>
+      <div>
+        <div class="project-section-label">Storage Layer</div>
+        <div class="tag-cloud" style="margin-bottom:16px">
+          <span class="tag purple">DynamoDB (per-tenant)</span>
+          <span class="tag purple">Aurora Serverless (reports)</span>
+          <span class="tag purple">S3 + Athena (raw data lake)</span>
+        </div>
+        <div class="project-section-label">Frontend + Security</div>
+        <div class="tag-cloud" style="margin-bottom:16px">
+          <span class="tag purple">React dashboard (WebSockets)</span>
+          <span class="tag purple">Cognito + tenant isolation</span>
+          <span class="tag purple">WAF + rate limiting</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="border-top:1px solid rgba(249,199,79,.15);margin-top:16px;padding-top:16px">
+      <div class="project-section-label">Why this wins FYP / job interviews</div>
+      <ul class="concept-list">
+        <li><div><strong>Multi-tenancy is a hard engineering problem</strong><span>Shows you understand data isolation, tenant-specific rate limiting, and SaaS architecture patterns that companies pay senior engineers to design.</span></div></li>
+        <li><div><strong>Real-time streaming is in-demand</strong><span>Kinesis + Kafka experience makes you competitive for data engineering and backend roles, not just cloud ops.</span></div></li>
+        <li><div><strong>Full-stack cloud story</strong><span>You built the infra (Terraform), the API (Node.js), the processing (Lambda/EKS), the storage (multi-DB), and the frontend (React). Zero gaps in your knowledge.</span></div></li>
+        <li><div><strong>Demonstrable at scale</strong><span>Load test with k6 to show it handles 10,000 events/second. Put the numbers in your CV and FYP report.</span></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top:16px"></div>
+  <div class="tip-block danger"><div class="tip-icon">⚠</div><div><strong>EKS is expensive — plan accordingly</strong><p>An EKS cluster costs ~$72/month for the control plane alone, before nodes. For learning: use eksctl with spot instances, shut down non-working hours, or use k3s/Minikube locally and only use EKS for final demos.</p></div></div>
+  <div class="tip-block danger"><div class="tip-icon">⚠</div><div><strong>Don't learn Kubernetes before understanding containers deeply</strong><p>EKS is complex. If you don't understand Docker networking, volume mounts, and multi-container pods yet, ECS Fargate is the correct intermediate step. Rushing to K8s without this foundation creates dangerous half-knowledge.</p></div></div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     PHASE 4: ELITE
+═══════════════════════════════════════════ -->
+<section class="phase-section" id="phase-3" style="--phase-color:var(--p4);--phase-bg:var(--p4-bg);--phase-border:rgba(249,199,79,.2);display:none">
+  <div class="phase-header">
+    <div class="phase-icon">⚡</div>
+    <div class="phase-meta">
+      <div class="phase-num">Phase 04 / Elite</div>
+      <div class="phase-title">Staff-Level <span>Cloud Architecture</span></div>
+      <div class="phase-desc">The top 10% doesn't just deploy services. They design for failure, optimize for cost at scale, define org-wide security posture, and can lead a team. This phase is about thinking, not just doing.</div>
+    </div>
+    <div class="phase-duration">Weeks 33–48</div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Advanced Architecture Patterns</div>
+      <ul class="concept-list">
+        <li>
+          <div><strong>Well-Architected Framework (deeply)</strong><span>6 pillars: Operational Excellence, Security, Reliability, Performance Efficiency, Cost Optimization, Sustainability. Run Well-Architected Reviews on your own projects and fix the gaps you find.</span></div>
+        </li>
+        <li>
+          <div><strong>Multi-region active-active</strong><span>Route 53 latency-based routing + health checks. DynamoDB Global Tables. Aurora Global Database. RTO/RPO planning. This is disaster recovery architecture, not just backup.</span></div>
+        </li>
+        <li>
+          <div><strong>Service mesh & zero-trust</strong><span>Istio/App Mesh for mTLS between services. Every service-to-service call authenticated and encrypted. No implicit trust inside the VPC.</span></div>
+        </li>
+        <li>
+          <div><strong>Platform engineering</strong><span>Build internal developer platforms. Golden paths. Backstage.io. Your job isn't to be the only one who knows AWS — it's to make your team productive on AWS.</span></div>
+        </li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Elite Engineering Mindset</div>
+      <ul class="concept-list">
+        <li>
+          <div><strong>Reliability engineering (SRE)</strong><span>Define SLIs, SLOs, error budgets. Runbooks for every alert. Blameless post-mortems. On-call rotations. This is the operational discipline that separates good from elite.</span></div>
+        </li>
+        <li>
+          <div><strong>Cost at scale</strong><span>Spot instance strategies with capacity-optimized allocation. Graviton3 (ARM) for 40% cost savings. Intelligent-Tiering for S3. Schedule-based scaling. Savings Plans analysis.</span></div>
+        </li>
+        <li>
+          <div><strong>Writing Architecture Decision Records (ADRs)</strong><span>Document WHY you made an architectural decision, not just what. Future-you and teammates will thank you.</span></div>
+        </li>
+        <li>
+          <div><strong>Contribute to open source</strong><span>Terraform providers, CDK constructs, Helm charts. This is tangible proof of expertise that no certification can match.</span></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card-title" style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:24px 0 16px;display:flex;align-items:center;gap:8px">Elite-Level Projects <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+
+  <div class="project-card">
+    <div class="project-header">
+      <div class="project-num">P4-A</div>
+      <div>
+        <div class="project-name">Multi-Region Disaster Recovery System</div>
+        <div class="project-desc">Design a system that achieves RTO &lt; 5 minutes and RPO &lt; 1 minute across two AWS regions. Document the architecture decision and tradeoffs.</div>
+      </div>
+    </div>
+    <div class="project-body">
+      <ul class="task-list">
+        <li><div class="task-check" onclick="toggleTask(this)"></div> Aurora Global Database with automated failover</li>
+        <li><div class="task-check" onclick="toggleTask(this)"></div> DynamoDB Global Tables (multi-master)</li>
+        <li><div class="task-check" onclick="toggleTask(this)"></div> Route 53 Application Recovery Controller</li>
+        <li><div class="task-check" onclick="toggleTask(this)"></div> Simulate regional failure and measure actual RTO vs target</li>
+        <li><div class="task-check" onclick="toggleTask(this)"></div> Write a runbook and post-mortem template</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="project-header">
+      <div class="project-num">P4-B</div>
+      <div>
+        <div class="project-name">Internal Developer Platform (IDP)</div>
+        <div class="project-desc">Build a self-service portal where developers can provision environments with pre-approved Terraform templates. This is what platform engineering looks like.</div>
+      </div>
+    </div>
+    <div class="project-body">
+      <ul class="task-list">
+        <li><div class="task-check" onclick="toggleTask(this)"></div> Backstage.io deployed on EKS with AWS integrations</li>
+        <li><div class="task-check" onclick="toggleTask(this)"></div> Service catalog of approved infrastructure templates</li>
+        <li><div class="task-check" onclick="toggleTask(this)"></div> Automated cost tagging + chargeback reporting</li>
+        <li><div class="task-check" onclick="toggleTask(this)"></div> Security guardrails: SCPs prevent deviation from approved patterns</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tip-block warn"><div class="tip-icon">◆</div><div><strong>The biggest mistake at elite level: staying technical only</strong><p>Top 10% engineers communicate architecture to non-engineers, write clear documentation, mentor others, and understand business impact (cost, time-to-market, risk). Start writing blog posts or a technical portfolio now — it compounds.</p></div></div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     STUDY PLAN + CERTS
+═══════════════════════════════════════════ -->
+<section class="phase-section" id="phase-4" style="display:none">
+  <div class="phase-header">
+    <div class="phase-icon">📅</div>
+    <div class="phase-meta">
+      <div class="phase-num">Study Plan + Certifications</div>
+      <div class="phase-title">Weekly Plan & <span>Certifications That Matter</span></div>
+      <div class="phase-desc">2–4 hours daily. Every week has a focus. Certifications are listed only where they add real-world credibility — not just resume decoration.</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:24px">
+    <div class="card-title">48-Week Study Roadmap (2–4 hrs/day)</div>
+    <table class="week-table">
+      <thead>
+        <tr>
+          <th>Weeks</th>
+          <th>Focus</th>
+          <th>Key Output</th>
+          <th>Phase</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1–2</td><td>AWS fundamentals, IAM, VPC networking deep dive</td><td>Custom VPC with public/private subnets + bastion host</td><td><span class="w-phase" style="color:var(--p1);background:var(--p1-bg)">Foundation</span></td></tr>
+        <tr><td>3–4</td><td>EC2, RDS, S3, CloudFront, Route53</td><td>Node.js API live with custom domain + SSL</td><td><span class="w-phase" style="color:var(--p1);background:var(--p1-bg)">Foundation</span></td></tr>
+        <tr><td>5–6</td><td>Docker deep dive, multi-stage builds, ECR</td><td>Containerized app pushed to ECR</td><td><span class="w-phase" style="color:var(--p1);background:var(--p1-bg)">Foundation</span></td></tr>
+        <tr><td>7–8</td><td>Auto Scaling, ELB, CloudWatch, IAM best practices</td><td>Project P1-A complete + AWS SAA exam prep begins</td><td><span class="w-phase" style="color:var(--p1);background:var(--p1-bg)">Foundation</span></td></tr>
+        <tr><td>9–10</td><td>Terraform fundamentals, HCL, remote state</td><td>Re-provision entire Phase 1 infra via Terraform</td><td><span class="w-phase" style="color:var(--p2);background:var(--p2-bg)">Intermediate</span></td></tr>
+        <tr><td>11–12</td><td>ECS Fargate, task definitions, service discovery</td><td>Microservices running on Fargate</td><td><span class="w-phase" style="color:var(--p2);background:var(--p2-bg)">Intermediate</span></td></tr>
+        <tr><td>13–14</td><td>CI/CD: GitHub Actions, OIDC auth, blue/green deploys</td><td>Working pipeline: PR → auto-deploy to ECS</td><td><span class="w-phase" style="color:var(--p2);background:var(--p2-bg)">Intermediate</span></td></tr>
+        <tr><td>15–16</td><td>Lambda (advanced), API Gateway, SQS, SNS, EventBridge</td><td>Serverless image processing pipeline (P2-B)</td><td><span class="w-phase" style="color:var(--p2);background:var(--p2-bg)">Intermediate</span></td></tr>
+        <tr><td>17–18</td><td>DynamoDB single-table design, ElastiCache Redis patterns</td><td>E-commerce backend with DynamoDB (P2-A)</td><td><span class="w-phase" style="color:var(--p2);background:var(--p2-bg)">Intermediate</span></td></tr>
+        <tr><td>19–20</td><td>Security: Secrets Manager, WAF, GuardDuty, CloudTrail</td><td>Security audit of all projects + SAA cert exam</td><td><span class="w-phase" style="color:var(--p2);background:var(--p2-bg)">Intermediate</span></td></tr>
+        <tr><td>21–24</td><td>Kubernetes: pods, deployments, services, RBAC, HPA</td><td>Local k8s cluster (Minikube), deploy microservices</td><td><span class="w-phase" style="color:var(--p3);background:var(--p3-bg)">Advanced</span></td></tr>
+        <tr><td>25–26</td><td>EKS: managed node groups, IRSA, Fargate profiles</td><td>FYP project on EKS</td><td><span class="w-phase" style="color:var(--p3);background:var(--p3-bg)">Advanced</span></td></tr>
+        <tr><td>27–28</td><td>Helm, ArgoCD GitOps, Prometheus + Grafana</td><td>Full GitOps pipeline for EKS</td><td><span class="w-phase" style="color:var(--p3);background:var(--p3-bg)">Advanced</span></td></tr>
+        <tr><td>29–30</td><td>Kinesis streaming, MSK (Kafka), real-time data processing</td><td>FYP analytics ingestion pipeline live</td><td><span class="w-phase" style="color:var(--p3);background:var(--p3-bg)">Advanced</span></td></tr>
+        <tr><td>31–32</td><td>Multi-tenant SaaS patterns, Cognito, tenant isolation</td><td>FYP project complete — load test to 10k events/sec</td><td><span class="w-phase" style="color:var(--p3);background:var(--p3-bg)">Advanced</span></td></tr>
+        <tr><td>33–36</td><td>SRE practices, SLOs, error budgets, chaos engineering</td><td>Runbook library + fault injection tests</td><td><span class="w-phase" style="color:var(--p4);background:var(--p4-bg)">Elite</span></td></tr>
+        <tr><td>37–40</td><td>Multi-region architecture, Aurora Global, Route53 ARC</td><td>DR system with measured RTO &lt; 5 min</td><td><span class="w-phase" style="color:var(--p4);background:var(--p4-bg)">Elite</span></td></tr>
+        <tr><td>41–44</td><td>FinOps, cost optimization, Graviton, Spot strategies</td><td>Cost reduction report — cut bill 30% with same performance</td><td><span class="w-phase" style="color:var(--p4);background:var(--p4-bg)">Elite</span></td></tr>
+        <tr><td>45–48</td><td>Platform engineering, portfolio writing, mock interviews</td><td>GitHub portfolio + 3 blog posts + CKA/SAP exam</td><td><span class="w-phase" style="color:var(--p4);background:var(--p4-bg)">Elite</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Certifications -->
+  <div class="card-title" style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:24px 0 16px;display:flex;align-items:center;gap:8px">Certifications That Add Real Value <span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+
+  <div class="grid-2">
+    <div class="cert-card">
+      <div class="cert-icon">🥇</div>
+      <div>
+        <div class="cert-name">AWS Solutions Architect Associate (SAA-C03)</div>
+        <div class="cert-note">The industry standard baseline. Take it after Week 20. Study with Stephane Maarek's course + practice exams only — avoid brain dumps. It validates your foundation to employers.</div>
+        <div class="cert-when" style="color:var(--p2)">→ Take at Week 20</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">⚓</div>
+      <div>
+        <div class="cert-name">Certified Kubernetes Administrator (CKA)</div>
+        <div class="cert-note">Hands-on exam (no multiple choice). You solve real K8s problems in 2 hours. This is genuinely hard and genuinely respected. Only take after 2+ months of daily K8s practice.</div>
+        <div class="cert-when" style="color:var(--p3)">→ Take at Week 32</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">🏛️</div>
+      <div>
+        <div class="cert-name">AWS Solutions Architect Professional (SAP-C02)</div>
+        <div class="cert-note">Notoriously hard. Validates elite-level AWS knowledge. Worth doing if you want to work at a top-tier cloud consultancy or AWS itself. Not needed for most SWE/DevOps roles.</div>
+        <div class="cert-when" style="color:var(--p4)">→ Take at Week 48</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">🔒</div>
+      <div>
+        <div class="cert-name">HashiCorp Terraform Associate</div>
+        <div class="cert-note">Quick win (~2 weeks study). Validates your Terraform skills specifically. Useful for DevOps/SRE roles where Terraform is the primary IaC tool. Low cost, high signal.</div>
+        <div class="cert-when" style="color:var(--p2)">→ Take at Week 16</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px"></div>
+  <div class="tip-block warn"><div class="tip-icon">◆</div><div><strong>Certifications ≠ competence. Projects = competence.</strong><p>A GitHub repo with a real multi-service Kubernetes deployment impresses a senior engineer more than 5 certifications. Certs open doors; your projects close the interview. Balance both, but never sacrifice project depth for cert quantity.</p></div></div>
+  <div class="tip-block success"><div class="tip-icon">✓</div><div><strong>One actionable tip to stand out immediately</strong><p>Start a technical blog on Hashnode or dev.to today. Document what you're building. "How I deployed a multi-tenant SaaS on EKS with Terraform and GitOps" gets you discovered by hiring managers searching for those exact terms.</p></div></div>
+</section>
+
+</main>
+
+<script>
+// Phase navigation
+function showPhase(idx) {
+  document.querySelectorAll('.phase-section').forEach((s,i) => s.style.display = i===idx ? 'block' : 'none');
+  document.querySelectorAll('.phase-tab').forEach((t,i) => t.classList.toggle('active', i===idx));
+  window.scrollTo({top: document.querySelector('.phase-nav').offsetTop - 10, behavior: 'smooth'});
+}
+
+// Checkboxes
+function toggleTask(el) {
+  el.classList.toggle('done');
+  el.parentElement.classList.toggle('done-item');
+  // persist in session
+  const tasks = [...document.querySelectorAll('.task-check')];
+  const state = tasks.map(t => t.classList.contains('done'));
+  sessionStorage.setItem('tasks', JSON.stringify(state));
+}
+
+// Restore state
+window.addEventListener('DOMContentLoaded', () => {
+  const saved = JSON.parse(sessionStorage.getItem('tasks') || '[]');
+  const tasks = [...document.querySelectorAll('.task-check')];
+  saved.forEach((done, i) => {
+    if (done && tasks[i]) {
+      tasks[i].classList.add('done');
+      tasks[i].parentElement.classList.add('done-item');
+    }
+  });
+});
+</script>
+</body>
+</html>
